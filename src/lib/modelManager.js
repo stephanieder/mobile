@@ -6,6 +6,7 @@ import Item from "../models/api/item"
 import Note from "../models/app/note"
 import Tag from "../models/app/tag"
 import Theme from "../models/app/theme"
+import Editor from "../models/app/editor"
 
 export default class ModelManager {
 
@@ -166,6 +167,8 @@ export default class ModelManager {
       item = new Tag(json_obj);
     } else if(json_obj.content_type == "SN|Theme") {
       item = new Theme(json_obj);
+    } else if(json_obj.content_type == "SN|Editor") {
+      item = new Editor(json_obj);
     }
 
     else {

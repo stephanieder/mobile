@@ -99,6 +99,9 @@ export default class Compose extends Abstract {
           var tags = ModelManager.getInstance().getItemsWithIds(options.selectedTags);
           this.state.note.replaceTags(tags);
           this.state.note.setDirty(true);
+        },
+        onChangesMade: () => {
+          this.changesMade();
         }
       }
     });

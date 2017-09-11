@@ -190,6 +190,25 @@ export default class Filter extends Abstract {
     this.props.onOptionsChange(this.options);
   }
 
+  onEditorSelect = (editor) => {
+    this.props.navigator.showModal({
+      screen: 'sn.Webview',
+      title: 'Webivew',
+      animationType: 'slide-up',
+      passProps: {
+        note: this.note,
+        editor: editor,
+        onChangesMade: this.props.onChangesMade
+      }
+    });
+  }
+
+  getEditors() {
+    return ModelManager.getInstance().itemsForContentType("SN|Editor").filter(function(editor){
+      return !editor.systemEditor;
+    })
+  }
+
   render() {
     return (
       <View style={GlobalStyles.styles().container}>
@@ -205,6 +224,10 @@ export default class Filter extends Abstract {
 
           { this.note &&
               <ManageNote note={this.note} title={"Manage Note"} onEvent={this.onManageNoteEvent.bind(this)}/>
+          }
+
+          { this.note &&
+              <EditorsSection editors={this.getEditors()} title={"Editors"} onEditorSelect={this.onEditorSelect.bind(this)}/>
           }
 
           <TagsSection
@@ -250,6 +273,39 @@ class TagsSection extends Component {
               key={tag.uuid}
               first={i == 0}
               selected={() => {return root.state.selected.includes(tag.uuid)}}
+              buttonCell={true}
+            />
+          )
+        })}
+
+
+      </TableSection>
+    );
+  }
+}
+
+
+class EditorsSection extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  onPress = (editor) => {
+    this.props.onEditorSelect(editor);
+  }
+
+  render() {
+    let root = this;
+    return (
+      <TableSection style={GlobalStyles.styles().view}>
+        <SectionHeader title={this.props.title} />
+        {this.props.editors.map(function(editor, i){
+          return (
+            <SectionedAccessoryTableCell
+              onPress={() => {root.onPress(editor)}}
+              text={editor.name}
+              key={editor.uuid}
+              first={i == 0}
               buttonCell={true}
             />
           )

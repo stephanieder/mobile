@@ -9,6 +9,7 @@ import Keychain from "../lib/keychain"
 import {iconsMap, iconsLoaded} from '../Icons';
 import NoteList from "../containers/NoteList"
 import Abstract from "./Abstract"
+import Webview from "./Webview"
 import {Authenticate, AuthenticationState} from "./Authenticate"
 
 export default class Notes extends Abstract {

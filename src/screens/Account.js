@@ -291,7 +291,6 @@ class OptionsSection extends Component {
 
 class ThemesSection extends Component {
   render() {
-    console.log("Rendering with themes", this.props.themes);
     return (
       <TableSection>
 

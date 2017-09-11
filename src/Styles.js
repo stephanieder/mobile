@@ -31,7 +31,7 @@ export default class GlobalStyles {
 
   systemTheme() {
     if(this._systemTheme) {
-      return this_.systemTheme;
+      return this._systemTheme;
     }
     var constants = this.defaultConstants();
     this._systemTheme = new Theme({
